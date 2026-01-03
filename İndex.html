@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AXELLIZM || THE ARCHIVE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #c5a059;
+            --dark: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(197, 160, 89, 0.2);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+        body { background-color: var(--dark); color: white; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+
+        /* --- SPLASH (YÜKSEK FPS) --- */
+        #splash {
+            position: fixed; inset: 0; background: #000; z-index: 10000;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 1s ease;
+        }
+        .intro-text {
+            font-family: 'Bodoni Moda', serif; font-size: 2.5rem; color: var(--gold);
+            font-style: italic; letter-spacing: 10px; text-transform: uppercase;
+            animation: royalFade 3.5s forwards; opacity: 0;
+        }
+        @keyframes royalFade {
+            0% { opacity: 0; transform: scale(0.9); filter: blur(10px); }
+            50% { opacity: 1; transform: scale(1); filter: blur(0); }
+            100% { opacity: 0; transform: scale(1.05); }
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed; top: 0; width: 100%; padding: 30px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; background: linear-gradient(to bottom, #000, transparent);
+        }
+        .brand { font-family: 'Bodoni Moda', serif; font-size: 1.8rem; letter-spacing: 4px; color: var(--gold); }
+        .auth-btn {
+            border: 1px solid var(--gold); padding: 10px 20px; font-size: 0.7rem;
+            letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: 0.4s;
+        }
+        .auth-btn:hover { background: var(--gold); color: #000; }
+
+        /* --- MAIN CONTENT --- */
+        main { padding: 120px 20px 150px; max-width: 1400px; margin: 0 auto; }
+
+        .section-title {
+            font-family: 'Bodoni Moda', serif; font-size: 2rem; color: var(--gold);
+            margin-bottom: 40px; text-align: center; letter-spacing: 5px; text-transform: uppercase;
+        }
+
+        /* --- GALLERY --- */
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px; margin-bottom: 80px;
+        }
+        .gallery-item {
+            aspect-ratio: 1; overflow: hidden; border: 1px solid var(--border);
+            position: relative; cursor: pointer;
+        }
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover; transition: 0.8s; filter: grayscale(100%);
+        }
+        .gallery-item:hover img { transform: scale(1.1); filter: grayscale(0%); }
+        .gallery-item::after {
+            content: "VIEW ARCHIVE"; position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.7); opacity: 0; transition: 0.4s; font-size: 0.8rem; letter-spacing: 3px;
+        }
+        .gallery-item:hover::after { opacity: 1; }
+
+        /* --- KARE MODÜLLER --- */
+        .module-card {
+            border: 1px solid var(--border); padding: 40px; background: var(--glass);
+            margin-bottom: 20px; transition: 0.4s;
+        }
+        .module-card:hover { border-color: var(--gold); }
+        .module-btn {
+            display: block; width: 100%; padding: 15px; border: 1px solid var(--gold);
+            background: transparent; color: var(--gold); text-transform: uppercase;
+            letter-spacing: 4px; font-size: 0.7rem; cursor: pointer; text-decoration: none; text-align: center;
+            margin-top: 20px;
+        }
+        .module-btn:hover { background: var(--gold); color: #000; }
+
+        /* --- HOLOGRAPHIC MUSIC PLAYER --- */
+        .music-player {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 500px; background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(20px); border: 1px solid var(--gold);
+            padding: 15px 25px; display: flex; align-items: center; gap: 20px;
+            z-index: 2000; box-shadow: 0 10px 50px rgba(0,0,0,0.8);
+        }
+        .album-art { width: 50px; height: 50px; background: var(--gold); flex-shrink: 0; }
+        .track-info { flex-grow: 1; overflow: hidden; }
+        .track-name { font-size: 0.8rem; font-weight: 600; white-space: nowrap; }
+        .visualizer { display: flex; gap: 3px; align-items: flex-end; height: 20px; }
+        .bar { width: 3px; background: var(--gold); animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { height: 5px; } to { height: 20px; } }
+
+        /* --- MODAL --- */
+        #auth-modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.98);
+            z-index: 10000; display: none; justify-content: center; align-items: center;
+        }
+        .modal-box { width: 90%; max-width: 400px; padding: 40px; border: 1px solid var(--gold); background: #000; }
+        input {
+            width: 100%; padding: 15px; margin-bottom: 15px; background: transparent;
+            border: 1px solid #222; color: white; outline: none;
+        }
+        input:focus { border-color: var(--gold); }
+
+    </style>
+</head>
+<body>
+
+    <div id="splash">
+        <div class="intro-text">Axellizm Sitesine Hoşgeldiniz</div>
+    </div>
+
+    <header>
+        <div class="brand">AXELLIZM</div>
+        <div class="auth-btn" id="member-btn">Member Access ✦</div>
+    </header>
+
+    <main>
+        <h2 class="section-title">The Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="https://picsum.photos/800/800?random=1"></div>
+            <div class="gallery-item"><img src="https://picsum.photos/800/800?random=2"></div>
+            <div class="gallery-item"><img src="https://picsum.photos/800/800?random=3"></div>
+            <div class="gallery-item"><img src="https://picsum.photos/800/800?random=4"></div>
+        </div>
+
+        <h2 class="section-title">Management</h2>
+        <div class="module-card">
+            <h3 style="font-family:'Bodoni Moda'; font-size:1.5rem; margin-bottom:10px;">Executive Lounge</h3>
+            <p style="font-size:0.8rem; color:#666;">Kişisel verileriniz ve ayarlarınız kuantum şifreleme ile bu bölümde saklanır.</p>
+            <button class="module-btn" onclick="document.getElementById('auth-modal').style.display='flex'">Edit Identity</button>
+        </div>
+    </main>
+
+    <div class="music-player">
+        <div class="album-art" style="background: url('https://picsum.photos/100/100?random=99') center/cover;"></div>
+        <div class="track-info">
+            <div class="track-name">Midnight in Milan — Axellizm Edit</div>
+            <div style="font-size:0.6rem; color:var(--gold); letter-spacing:2px;">NOW PLAYING</div>
+        </div>
+        <div class="visualizer">
+            <div class="bar" style="animation-delay: 0.1s"></div>
+            <div class="bar" style="animation-delay: 0.3s"></div>
+            <div class="bar" style="animation-delay: 0.2s"></div>
+            <div class="bar" style="animation-delay: 0.4s"></div>
+        </div>
+    </div>
+
+    <div id="auth-modal">
+        <div class="modal-box">
+            <h2 style="font-family:'Bodoni Moda'; color:var(--gold); margin-bottom:20px;">Identity Node</h2>
+            <input type="text" id="name-in" placeholder="Nominal Name">
+            <input type="password" id="pass-in" placeholder="Security Phrase">
+            <button class="module-btn" style="background:var(--gold); color:#000;" onclick="save()">Update Records</button>
+            <button class="module-btn" style="border:none; font-size:0.6rem;" onclick="document.getElementById('auth-modal').style.display='none'">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        // Splash Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash');
+                splash.style.opacity = '0';
+                setTimeout(() => splash.remove(), 1000);
+            }, 3500);
+
+            const saved = localStorage.getItem('ax_royal');
+            if(saved) document.getElementById('member-btn').innerText = JSON.parse(saved).name;
+        });
+
+        // Identity Save
+        function save() {
+            const n = document.getElementById('name-in').value;
+            if(n) {
+                localStorage.setItem('ax_royal', JSON.stringify({name: n.toUpperCase()}));
+                document.getElementById('member-btn').innerText = n.toUpperCase();
+                document.getElementById('auth-modal').style.display = 'none';
+            }
+        }
+
+        // Tıklama efektleri için
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.onclick = () => window.open('https://google.com', '_blank');
+        });
+    </script>
+</body>
+</html>
