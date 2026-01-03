@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXELLIZM || OFFICAL UI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Bodoni+Moda:ital@1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink: #ff2d55;
+            --dark-card: rgba(25, 25, 25, 0.95);
+            --border: rgba(255, 45, 85, 0.2);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            background: #000;
+            background-image: radial-gradient(circle at center, #2a0015 0%, #000 100%);
+            color: #fff; font-family: 'Montserrat', sans-serif;
+            height: 100vh; overflow: hidden; display: flex; flex-direction: column;
+        }
+
+        /* Üst Header */
+        header { 
+            padding: 20px; border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0,0,0,0.5);
+        }
+        .brand { font-family: 'Bodoni Moda', serif; color: var(--pink); font-size: 1.4rem; font-style: italic; }
+        .erişim-btn { border: 1px solid var(--pink); padding: 5px 15px; border-radius: 5px; font-size: 0.8rem; color: #fff; background: transparent; }
+
+        main { flex: 1; overflow-y: auto; padding: 20px; }
+
+        /* Karşılama Alanı */
+        .hero { text-align: center; padding: 40px 0; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+        .hero h2 { font-family: 'Bodoni Moda', serif; font-size: 1.8rem; font-style: italic; margin-bottom: 10px; }
+        .hero .minimal-btn { background: var(--pink); border: none; padding: 5px 20px; border-radius: 5px; color: #fff; font-size: 0.7rem; }
+
+        /* Fotoğraftaki Kutulu Düzen */
+        .grid-container { display: grid; grid-template-columns: 1fr; gap: 20px; }
+
+        .card { 
+            background: var(--dark-card); border: 1px solid var(--border);
+            border-radius: 15px; padding: 20px;
+        }
+
+        .card h3 { color: var(--pink); font-size: 1.1rem; margin-bottom: 10px; }
+        .card p { font-size: 0.8rem; color: #aaa; line-height: 1.4; margin-bottom: 15px; }
+
+        /* Fotoğraftaki Geniş Butonlar */
+        .wide-btn {
+            width: 100%; padding: 12px; border: 1px solid var(--pink);
+            background: transparent; color: #fff; border-radius: 8px;
+            font-size: 0.9rem; text-align: left; display: flex; justify-content: space-between;
+        }
+
+        /* Sayaç Kutusu (Fotoğrafın Sağ Tarafı) */
+        .stats-box { border-left: 3px solid var(--pink); padding-left: 15px; }
+        .stat-item { margin-bottom: 15px; }
+        .stat-value { font-size: 2rem; font-weight: 600; color: #fff; }
+        .stat-label { font-size: 0.7rem; color: var(--pink); letter-spacing: 1px; }
+
+        /* En Alt Müzik Player Barı */
+        .bottom-player {
+            background: #0a0a0a; border-top: 1px solid var(--border);
+            padding: 15px 20px; display: flex; align-items: center; gap: 15px;
+        }
+        .album-art { width: 45px; height: 45px; background: #222; border-radius: 5px; border: 1px solid #333; }
+        .track-info { flex: 1; }
+        .track-info .title { font-size: 0.85rem; font-weight: 600; }
+        .track-info .artist { font-size: 0.7rem; color: #666; }
+        
+        .controls { display: flex; gap: 15px; font-size: 1.2rem; color: #aaa; }
+
+    </style>
+</head>
+<body>
+
+    <audio id="music" loop><source src="https://www.mboxdrive.com/Deha-Tuzcu-Rxckstar.mp3" type="audio/mp3"></audio>
+
+    <header>
+        <div class="brand">AXELLIZM</div>
+        <button class="erişim-btn">Erişim ▾</button>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Axellizm Sitesine Hoşgeldiniz</h2>
+            <button class="minimal-btn" onclick="playMusic()">minimal btt</button>
+        </section>
+
+        <div class="grid-container">
+            <div class="card">
+                <h3>Kişisel Arşiv</h3>
+                <p>Sadece size özel, yüksek kalitede dijital içerikler.</p>
+                <button class="wide-btn">Görüntüle <span>→</span></button>
+            </div>
+
+            <div class="card">
+                <h3>Kimlik Yönetimi</h3>
+                <p>Hesap bilgilerinizi ve profil ayarlarınızı güncelleyin.</p>
+                <button class="wide-btn">Düzenle <span>→</span></button>
+            </div>
+
+            <div class="card stats-box">
+                <div class="stat-item">
+                    <div class="stat-label">USERLARI SAYACIER</div>
+                    <div class="stat-value">01,234</div>
+                    <div style="font-size: 0.6rem; color: #444;">Playing now</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">USER STATU</div>
+                    <div class="stat-value">01,234</div>
+                    <div style="font-size: 0.6rem; color: #444;">AKTİF KULLANLAR</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="bottom-player">
+        <div class="album-art"></div>
+        <div class="track-info">
+            <div class="title">Rxckstar</div>
+            <div class="artist">Deha Tuzcu</div>
+        </div>
+        <div class="controls">
+            <span>||</span>
+            <span>⏭</span>
+            <span>🔄</span>
+        </div>
+    </div>
+
+    <script>
+        function playMusic() {
+            const m = document.getElementById('music');
+            m.play();
+            alert("Sistem Başlatıldı.");
+        }
+    </script>
+</body>
+</html>
